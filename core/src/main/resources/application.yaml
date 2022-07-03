@@ -1,1 +1,13 @@
 botToken: 5423205939:AAFNaz5kIqN9InK1C9QwshAnyXLM9WFc6v8
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/driverHub
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
