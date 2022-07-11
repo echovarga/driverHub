@@ -5,11 +5,9 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 public interface TelegramBotService {
     void createEvent();
 
-    void sendMessage(String receiverId, String messageText);
+    void sendMessage(Long receiverId, String messageText);
 
     void sendMessageWithKeyboard(String receiverId, String messageText, InlineKeyboardButton... keyboardButtons);
-
-    void subscribeOnAllTelegramBotEvents();
 
     void registrateClient(String name, String phone);
 

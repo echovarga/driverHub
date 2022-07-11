@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Configuration
 @RequiredArgsConstructor
 public class TelegramCommandsMapConfig {
-    List<TelegramCommand> telegramCommandList;
+    final List<TelegramCommand> telegramCommandList;
 
     @Bean(name = "telegramCommandMap")
     Map<String, TelegramCommand> createTelegramCommandMap(){

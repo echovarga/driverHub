@@ -1,19 +1,21 @@
 package com.driverHub.core.telegram.commands;
 
 import com.driverHub.core.service.TelegramBotService;
+import com.pengrad.telegrambot.model.Update;
+import lombok.Getter;
+import org.springframework.stereotype.Component;
 
-import java.util.Map;
+@Getter
+@Component
+public class RegistrateDriverTelegramCommand implements TelegramCommand{
+    private final String commandText = "/registrateDriver";
+    private final String commandDescription = "Registrate Driver Command";
 
-public class RegistrateDriverTelegramCommand extends TelegramCommand{
-    //TODO replace with annotation
-    public RegistrateDriverTelegramCommand() {
-        commandText = "/starts";
-        commandDescription ="Starts Bot Command";
-    }
-
-    //TODO
     @Override
-    public void applyCommandAction(TelegramBotService telegramBotService, Map<String, String> data) {
-
+    public void applyCommandAction(TelegramBotService telegramBotService, Update update) {
+        final String name = update.message().from().firstName();
+        final String phone = "phone";
+        final String car = "car";
+        telegramBotService.registrateDriver(name, phone, car);
     }
 }

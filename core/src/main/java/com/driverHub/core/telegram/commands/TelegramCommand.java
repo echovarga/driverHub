@@ -1,14 +1,16 @@
 package com.driverHub.core.telegram.commands;
 
 import com.driverHub.core.service.TelegramBotService;
-import lombok.Getter;
+import com.pengrad.telegrambot.model.Update;
 
 import java.util.Map;
 
-@Getter
-public abstract class TelegramCommand {
-    protected String commandText; //starts with "/"
-    protected String commandDescription;
 
-    public abstract void applyCommandAction(TelegramBotService telegramBotService, Map<String, String> data);
+public interface TelegramCommand {
+
+    void applyCommandAction(TelegramBotService telegramBotService, Update update);
+
+    String getCommandText();
+
+    String getCommandDescription();
 }

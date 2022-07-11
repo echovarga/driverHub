@@ -21,17 +21,12 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     private final ClientService clientService;
     private final TaxiDriverService taxiDriverService;
 
-    @PostConstruct
-    private void init() {
-        subscribeOnAllTelegramBotEvents();
-    }
-
     @Override
     public void createEvent() {
     }
 
     @Override
-    public void sendMessage(String receiverId, String messageText) {
+    public void sendMessage(Long receiverId, String messageText) {
         SendMessage request = new SendMessage(receiverId, messageText)
                 .parseMode(ParseMode.HTML);
         telegramBot.execute(request);
@@ -47,11 +42,6 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
-    public void subscribeOnAllTelegramBotEvents() {
-        telegramBot.setUpdatesListener(createUpdatesListener());
-    }
-
-    @Override
     public void registrateClient(String name, String phone) {
         clientService.createAndSaveClient(name, phone);
     }
@@ -61,12 +51,4 @@ public class TelegramBotServiceImpl implements TelegramBotService {
         taxiDriverService.createAndSaveTaxiDriver(name, phone, car);
     }
 
-    private UpdatesListener createUpdatesListener() {
-        return updates -> {
-            // process updates
-            log.info("updates here");
-            updates.forEach(update -> log.info(update.toString()));
-            return UpdatesListener.CONFIRMED_UPDATES_ALL;
-        };
-    }
 }
