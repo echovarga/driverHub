@@ -7,9 +7,9 @@ public interface TelegramBotService {
 
     void sendMessage(Long receiverId, String messageText);
 
-    void sendMessageWithKeyboard(String receiverId, String messageText, InlineKeyboardButton... keyboardButtons);
+    void sendMessageWithKeyboard(Long receiverId, String messageText, InlineKeyboardButton... keyboardButtons);
 
-    void registrateClient(String name, String phone);
+    void registrateClient(Long telegramId, String name, String phone);
 
-    void registrateDriver(String name, String phone, String car);
+    void registrateDriver(Long telegramId, String name, String phone, String car);
 }

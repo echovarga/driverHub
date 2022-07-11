@@ -11,8 +11,9 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
     private final TaxiDriverRepository taxiDriverRepository;
 
     @Override
-    public TaxiDriverEntity createAndSaveTaxiDriver(String name, String phone, String car) {
+    public TaxiDriverEntity createAndSaveTaxiDriver(Long telegramId, String name, String phone, String car) {
         TaxiDriverEntity taxiDriverEntity = new TaxiDriverEntity();
+        taxiDriverEntity.setTelegramId(telegramId);
         taxiDriverEntity.setName(name);
         taxiDriverEntity.setPhone(phone);
         taxiDriverEntity.setCar(car);

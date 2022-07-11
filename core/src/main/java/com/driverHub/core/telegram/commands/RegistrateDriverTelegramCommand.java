@@ -13,9 +13,10 @@ public class RegistrateDriverTelegramCommand implements TelegramCommand{
 
     @Override
     public void applyCommandAction(TelegramBotService telegramBotService, Update update) {
+        final Long telegramId = update.message().from().id();
         final String name = update.message().from().firstName();
         final String phone = "phone";
         final String car = "car";
-        telegramBotService.registrateDriver(name, phone, car);
+        telegramBotService.registrateDriver(telegramId, name, phone, car);
     }
 }

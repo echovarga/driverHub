@@ -11,8 +11,9 @@ public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
 
     @Override
-    public ClientEntity createAndSaveClient(String name, String phone) {
+    public ClientEntity createAndSaveClient(Long telegramId, String name, String phone) {
         ClientEntity clientEntity = new ClientEntity();
+        clientEntity.setTelegramId(telegramId);
         clientEntity.setName(name);
         clientEntity.setPhone(phone);
         return clientRepository.save(clientEntity);

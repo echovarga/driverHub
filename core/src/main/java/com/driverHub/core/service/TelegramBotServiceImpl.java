@@ -33,7 +33,7 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
-    public void sendMessageWithKeyboard(String receiverId, String messageText, InlineKeyboardButton... keyboardButtons) {
+    public void sendMessageWithKeyboard(Long receiverId, String messageText, InlineKeyboardButton... keyboardButtons) {
         SendMessage request = new SendMessage(receiverId, messageText)
                 .parseMode(ParseMode.HTML);
         Keyboard keyboard = new InlineKeyboardMarkup(keyboardButtons);
@@ -42,13 +42,13 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
-    public void registrateClient(String name, String phone) {
-        clientService.createAndSaveClient(name, phone);
+    public void registrateClient(Long telegramId, String name, String phone) {
+        clientService.createAndSaveClient(telegramId, name, phone);
     }
 
     @Override
-    public void registrateDriver(String name, String phone, String car) {
-        taxiDriverService.createAndSaveTaxiDriver(name, phone, car);
+    public void registrateDriver(Long telegramId, String name, String phone, String car) {
+        taxiDriverService.createAndSaveTaxiDriver(telegramId, name, phone, car);
     }
 
 }
