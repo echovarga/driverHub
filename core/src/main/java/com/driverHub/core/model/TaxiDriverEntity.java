@@ -5,10 +5,12 @@ import javax.persistence.Id;
 
 
 @Entity
+//TODO upgrade as subclass of TGUser
 public class TaxiDriverEntity {
     @Id
     private Long id;
 
+    private String telegramId;
     private String name;
     private String phone;
 
