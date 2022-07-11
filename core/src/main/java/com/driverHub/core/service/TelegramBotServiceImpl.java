@@ -18,6 +18,8 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class TelegramBotServiceImpl implements TelegramBotService {
     private final TelegramBot telegramBot;
+    private final ClientService clientService;
+    private final TaxiDriverService taxiDriverService;
 
     @PostConstruct
     private void init() {
@@ -26,20 +28,6 @@ public class TelegramBotServiceImpl implements TelegramBotService {
 
     @Override
     public void createEvent() {
-        SendMessage request = new SendMessage("-696985944", "hi")
-                .parseMode(ParseMode.HTML);
-        // .disableWebPagePreview(true)
-        // .disableNotification(true)
-        //.replyToMessageId(1)
-        // .replyMarkup(new ForceReply());
-        Keyboard keyboard = new InlineKeyboardMarkup(
-                new InlineKeyboardButton("text").callbackData("callback123"),
-                new InlineKeyboardButton("contact").callbackData("callback123"),
-                new InlineKeyboardButton("location").callbackData("callback123")
-        );
-        request.replyMarkup(keyboard);
-        log.info("here");
-        telegramBot.execute(request);
     }
 
     @Override
@@ -50,8 +38,27 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
+    public void sendMessageWithKeyboard(String receiverId, String messageText, InlineKeyboardButton... keyboardButtons) {
+        SendMessage request = new SendMessage(receiverId, messageText)
+                .parseMode(ParseMode.HTML);
+        Keyboard keyboard = new InlineKeyboardMarkup(keyboardButtons);
+        request.replyMarkup(keyboard);
+        telegramBot.execute(request);
+    }
+
+    @Override
     public void subscribeOnAllTelegramBotEvents() {
         telegramBot.setUpdatesListener(createUpdatesListener());
+    }
+
+    @Override
+    public void registrateClient(String name, String phone) {
+        clientService.createAndSaveClient(name, phone);
+    }
+
+    @Override
+    public void registrateDriver(String name, String phone, String car) {
+        taxiDriverService.createAndSaveTaxiDriver(name, phone, car);
     }
 
     private UpdatesListener createUpdatesListener() {
