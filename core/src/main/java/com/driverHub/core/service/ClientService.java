@@ -1,5 +1,7 @@
 package com.driverHub.core.service;
 
+import com.driverHub.core.model.ClientEntity;
+
 public interface ClientService {
-    void createClient(String name, String phone);
+    ClientEntity createAndSaveClient(String name, String phone);
 }

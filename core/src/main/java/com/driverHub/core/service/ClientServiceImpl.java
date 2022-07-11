@@ -1,8 +1,20 @@
 package com.driverHub.core.service;
 
-public class ClientServiceImpl implements ClientService{
-    @Override
-    public void createClient(String name, String phone) {
+import com.driverHub.core.model.ClientEntity;
+import com.driverHub.core.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
+public class ClientServiceImpl implements ClientService {
+    private final ClientRepository clientRepository;
+
+    @Override
+    public ClientEntity createAndSaveClient(String name, String phone) {
+        ClientEntity clientEntity = new ClientEntity();
+        clientEntity.setName(name);
+        clientEntity.setPhone(phone);
+        return clientRepository.save(clientEntity);
     }
 }
