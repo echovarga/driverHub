@@ -19,4 +19,9 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
         taxiDriverEntity.setCar(car);
         return taxiDriverRepository.save(taxiDriverEntity);
     }
+
+    @Override
+    public Iterable<TaxiDriverEntity> getAllDrivers() {
+        return taxiDriverRepository.findAll();
+    }
 }

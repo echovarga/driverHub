@@ -1,17 +1,13 @@
 package com.driverHub.core.service;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.UpdatesListener;
-import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.ParseMode;
+import com.pengrad.telegrambot.request.SendLocation;
 import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 @Slf4j
 @Service
@@ -33,11 +29,16 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
-    public void sendMessageWithKeyboard(Long receiverId, String messageText, InlineKeyboardButton... keyboardButtons) {
+    public void sendMessageWithKeyboard(Long receiverId, String messageText, Keyboard keyboard) {
         SendMessage request = new SendMessage(receiverId, messageText)
-                .parseMode(ParseMode.HTML);
-        Keyboard keyboard = new InlineKeyboardMarkup(keyboardButtons);
-        request.replyMarkup(keyboard);
+                .parseMode(ParseMode.HTML)
+                .replyMarkup(keyboard);
+        telegramBot.execute(request);
+    }
+
+    @Override
+    public void sendLocationWithKeyboard(Long receiverId, float latitude, float longitude) {
+        SendLocation request = new SendLocation(receiverId, latitude, longitude);
         telegramBot.execute(request);
     }
 
