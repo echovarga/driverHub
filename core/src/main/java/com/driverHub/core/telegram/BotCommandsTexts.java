@@ -9,7 +9,8 @@ public enum BotCommandsTexts {
     REGISTRATE_DRIVER("/registrate_driver", "Registrate Driver Command"),
     WANT_TAXI("/want_taxi", "Want Taxi Command"),
     GET_TAXI("Press the button", "Get Taxi Command"),
-    ACCEPT_RIDING("/accept_riding", "Accept riding");
+    ACCEPT_RIDING("/accept_riding", "Accept riding"),
+    END_RIDING("/end_riding", "End riding");
 
     private final String commandText;
     private final String commandDescription;

@@ -14,9 +14,6 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
 
     @Override
     public TaxiDriverEntity createAndSaveTaxiDriver(Long telegramId, String name, String phone, String car) {
-        if (taxiDriverRepository.getByTelegramId(telegramId).isPresent()){
-            return taxiDriverRepository.getByTelegramId(telegramId).get();
-        }
         TaxiDriverEntity taxiDriverEntity = new TaxiDriverEntity();
         taxiDriverEntity.setTelegramId(telegramId);
         taxiDriverEntity.setName(name);

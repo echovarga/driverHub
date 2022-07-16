@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RideContractRepository extends CrudRepository<RideContractEntity, Long> {
-    List<RideContractEntity> getByClient_TelegramId(Long clientTelegramId);
+    List<RideContractEntity> getByClient_TelegramIdAndCompletedFalse(Long clientTelegramId);
 }

@@ -22,4 +22,6 @@ public class RideContractEntity {
 
     private float clientLatitude;
     private float clientLongitude;
+
+    private Boolean completed = false;
 }
