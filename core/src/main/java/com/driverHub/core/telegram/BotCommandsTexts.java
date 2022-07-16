@@ -4,15 +4,17 @@ import lombok.Getter;
 
 @Getter
 public enum BotCommandsTexts {
-    STARTS("/starts"),
-    REGISTRATE_CLIENT("/registrateClient"),
-    REGISTRATE_DRIVER("/registrateDriver"),
-    WANT_TAXI("/wantTaxi"),
-    GET_TAXI("/getTaxi");
+    STARTS("/starts", "Starts Bot Command"),
+    REGISTRATE_CLIENT("/registrateClient", "Registrate Client Command"),
+    REGISTRATE_DRIVER("/registrateDriver", "Registrate Driver Command"),
+    WANT_TAXI("/wantTaxi", "Want Taxi Command"),
+    GET_TAXI("Press the button", "Get Taxi Command");
 
     private final String commandText;
+    private final String commandDescription;
 
-    BotCommandsTexts(String commandText) {
+    BotCommandsTexts(String commandText, String commandDescription) {
         this.commandText = commandText;
+        this.commandDescription = commandDescription;
     }
 }

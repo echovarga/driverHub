@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistrateClientTelegramCommand implements TelegramCommand{
     private final String commandText = BotCommandsTexts.REGISTRATE_CLIENT.getCommandText();
-    private final String commandDescription = "Registrate Client Command";
+    private final String commandDescription = BotCommandsTexts.REGISTRATE_CLIENT.getCommandDescription();
 
     @Override
     public void applyCommandAction(TelegramBotService telegramBotService, Update update) {

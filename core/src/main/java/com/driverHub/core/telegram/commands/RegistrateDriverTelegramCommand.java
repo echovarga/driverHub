@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistrateDriverTelegramCommand implements TelegramCommand{
     private final String commandText = BotCommandsTexts.REGISTRATE_DRIVER.getCommandText();
-    private final String commandDescription = "Registrate Driver Command";
+    private final String commandDescription = BotCommandsTexts.REGISTRATE_DRIVER.getCommandDescription();
 
     @Override
     public void applyCommandAction(TelegramBotService telegramBotService, Update update) {

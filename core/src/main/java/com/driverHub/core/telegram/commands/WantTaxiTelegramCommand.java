@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class WantTaxiTelegramCommand implements TelegramCommand {
     private final String commandText = BotCommandsTexts.WANT_TAXI.getCommandText();
-    private final String commandDescription = "Want Taxi Command";
+    private final String commandDescription = BotCommandsTexts.WANT_TAXI.getCommandDescription();
     private final String getTaxiText = "Please, press \"Get Taxi\" button to get a taxi. It will request yor location";
 
     @Override

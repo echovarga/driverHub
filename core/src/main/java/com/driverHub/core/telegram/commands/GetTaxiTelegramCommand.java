@@ -1,37 +1,66 @@
 package com.driverHub.core.telegram.commands;
 
+import com.driverHub.core.model.ClientEntity;
+import com.driverHub.core.model.RideContractEntity;
+import com.driverHub.core.service.ClientService;
+import com.driverHub.core.service.ContractService;
 import com.driverHub.core.service.TaxiDriverService;
 import com.driverHub.core.service.TelegramBotService;
 import com.driverHub.core.telegram.BotCommandsTexts;
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Location;
 import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
+@Slf4j
 @Getter
 @Component
 @RequiredArgsConstructor
 public class GetTaxiTelegramCommand implements TelegramCommand {
     private final String commandText = BotCommandsTexts.GET_TAXI.getCommandText();
-    private final String commandDescription = "Get Taxi Command";
+    private final String commandDescription = BotCommandsTexts.GET_TAXI.getCommandDescription();
     private final String completeSendingClientMessage = "Dear Client, your GetTaxi request has been sent to drivers";
-    private final TaxiDriverService taxiDriverService;
     private final TelegramBotService telegramBotService;
-    private final TelegramBot telegramBot;
+    private final TaxiDriverService taxiDriverService;
+    private final ContractService contractService;
+    private final ClientService clientService;
 
     @Override
     public void applyCommandAction(TelegramBotService telegramBotService, Update update) {
-        final String message = String.format("Hi, %s wants to ride!", update.message().from().firstName());
-        final Location geolocation = update.message().location();
+        final Long clientTelegramId = update.message().from().id();
+        if (contractService.findAllNotCompletedContractsForClient(clientTelegramId).size() > 0) {
+            telegramBotService.sendMessage(clientTelegramId, "You already have an active ride contract");
+            return;
+        }
+        Optional<ClientEntity> optionalClientEntity = clientService.getClientByTelegramId(clientTelegramId);
+        if (optionalClientEntity.isEmpty()) {
+            telegramBotService.sendMessage(clientTelegramId, "You need to registrate first");
+            return;
+        }
+        createAndSaveRideContractForClient(update.message().location(), optionalClientEntity.get());
+        sendTaxiRequestToAllFreeDriversAndNotifyClient(update.message().location(), update.message().from());
+    }
+
+    private void createAndSaveRideContractForClient(Location location, ClientEntity clientEntity) {
+        RideContractEntity rideContractEntity = new RideContractEntity();
+        rideContractEntity.setClient(clientEntity);
+        rideContractEntity.setClientLatitude(location.latitude());
+        rideContractEntity.setClientLongitude(location.longitude());
+        contractService.saveContract(rideContractEntity);
+    }
+
+    private void sendTaxiRequestToAllFreeDriversAndNotifyClient(Location location, User client) {
+        final String message = String.format("Hi, %s wants to ride!", client.firstName());
         taxiDriverService.getAllDrivers()
                 .forEach(taxiDriver -> {
                     telegramBotService.sendMessage(taxiDriver.getTelegramId(), message);
-                    telegramBotService.sendLocation(taxiDriver.getTelegramId(), geolocation.latitude(), geolocation.longitude());
+                    telegramBotService.sendLocation(taxiDriver.getTelegramId(), location.latitude(), location.longitude());
                 });
-
-        final Long senderId = update.message().from().id();
-        telegramBotService.sendMessage(senderId, completeSendingClientMessage);
+        telegramBotService.sendMessage(client.id(), completeSendingClientMessage);
     }
 }
