@@ -9,7 +9,7 @@ public interface TelegramBotService {
 
     void sendMessageWithKeyboard(Long receiverId, String messageText, Keyboard keyboard);
 
-    void sendLocationWithKeyboard(Long receiverId, float latitude, float longitude);
+    void sendLocation(Long receiverId, float latitude, float longitude);
 
     void registrateClient(Long telegramId, String name, String phone);
 

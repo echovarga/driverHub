@@ -40,6 +40,11 @@ public class TelegramUpdatesHandler {
     private void handleUpdate(Update update) {
         Optional<TelegramCommand> commandFromUpdateIfExist
                 = telegramCommandsService.getCommandFromUpdateIfExist(update.message().text());
+        if(commandFromUpdateIfExist.isEmpty() && update.message().replyToMessage() != null){
+            commandFromUpdateIfExist
+                    = telegramCommandsService.getCommandFromUpdateIfExist(update.message().replyToMessage().text());
+        }
+
         commandFromUpdateIfExist.ifPresentOrElse(
                 telegramCommand -> telegramCommand.applyCommandAction(telegramBotService, update),
                 () -> log.info("command is not found")

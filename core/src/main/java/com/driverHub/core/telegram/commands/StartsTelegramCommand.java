@@ -1,6 +1,7 @@
 package com.driverHub.core.telegram.commands;
 
 import com.driverHub.core.service.TelegramBotService;
+import com.driverHub.core.telegram.BotCommandsTexts;
 import com.pengrad.telegrambot.model.Update;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class StartsTelegramCommand implements TelegramCommand{
-    private final String commandText = "/starts";
+    private final String commandText = BotCommandsTexts.STARTS.getCommandText();
     private final String commandDescription = "Starts Bot Command";
 
     @Override

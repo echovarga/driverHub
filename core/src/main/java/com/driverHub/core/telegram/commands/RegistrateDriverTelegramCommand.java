@@ -1,6 +1,7 @@
 package com.driverHub.core.telegram.commands;
 
 import com.driverHub.core.service.TelegramBotService;
+import com.driverHub.core.telegram.BotCommandsTexts;
 import com.pengrad.telegrambot.model.Update;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class RegistrateDriverTelegramCommand implements TelegramCommand{
-    private final String commandText = "/registrateDriver";
+    private final String commandText = BotCommandsTexts.REGISTRATE_DRIVER.getCommandText();
     private final String commandDescription = "Registrate Driver Command";
 
     @Override

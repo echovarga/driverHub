@@ -37,7 +37,7 @@ public class TelegramBotServiceImpl implements TelegramBotService {
     }
 
     @Override
-    public void sendLocationWithKeyboard(Long receiverId, float latitude, float longitude) {
+    public void sendLocation(Long receiverId, float latitude, float longitude) {
         SendLocation request = new SendLocation(receiverId, latitude, longitude);
         telegramBot.execute(request);
     }
