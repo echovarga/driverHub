@@ -5,6 +5,8 @@ import com.driverHub.core.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
@@ -17,5 +19,10 @@ public class ClientServiceImpl implements ClientService {
         clientEntity.setName(name);
         clientEntity.setPhone(phone);
         return clientRepository.save(clientEntity);
+    }
+
+    @Override
+    public Optional<ClientEntity> getClientByTelegramId(Long telegramId) {
+        return clientRepository.getByTelegramId(telegramId);
     }
 }

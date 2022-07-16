@@ -1,9 +1,12 @@
 package com.driverHub.core.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+@Data
 @Entity
 public class RideContractEntity {
     @Id
@@ -14,6 +17,6 @@ public class RideContractEntity {
     @OneToOne
     private TaxiDriverEntity taxiDriver;
 
-    private String clientLatitude;
-    private String clientLongitude;
+    private float clientLatitude;
+    private float clientLongitude;
 }

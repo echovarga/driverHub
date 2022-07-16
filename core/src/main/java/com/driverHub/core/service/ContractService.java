@@ -1,9 +1,11 @@
 package com.driverHub.core.service;
 
-import com.driverHub.core.model.ClientEntity;
-import com.driverHub.core.model.Geolocation;
-import com.driverHub.core.model.TaxiDriverEntity;
+import com.driverHub.core.model.RideContractEntity;
+
+import java.util.List;
 
 public interface ContractService {
-    void createContract(ClientEntity client, TaxiDriverEntity taxiDriver, Geolocation clientGeoLocation);
+    RideContractEntity saveContract(RideContractEntity rideContractEntity);
+
+    List<RideContractEntity> findAllNotCompletedContractsForClient(Long clientTelegramId);
 }
