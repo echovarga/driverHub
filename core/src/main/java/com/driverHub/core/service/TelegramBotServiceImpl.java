@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendLocation;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.SendResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

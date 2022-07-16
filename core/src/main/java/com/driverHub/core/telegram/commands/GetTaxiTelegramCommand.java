@@ -10,6 +10,8 @@ import com.driverHub.core.telegram.BotCommandsTexts;
 import com.pengrad.telegrambot.model.Location;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.User;
+import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,11 +57,15 @@ public class GetTaxiTelegramCommand implements TelegramCommand {
     }
 
     private void sendTaxiRequestToAllFreeDriversAndNotifyClient(Location location, User client) {
-        final String message = String.format("Hi, %s wants to ride!", client.firstName());
+        final String message = String.format("Hi, %s wants to ride!. It's his location", client.firstName());
+        InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(
+                new InlineKeyboardButton(BotCommandsTexts.ACCEPT_RIDING.getCommandText()).callbackData(client.id().toString()),
+                new InlineKeyboardButton("Deny riding").switchInlineQuery(client.id().toString()));
         taxiDriverService.getAllDrivers()
                 .forEach(taxiDriver -> {
                     telegramBotService.sendMessage(taxiDriver.getTelegramId(), message);
                     telegramBotService.sendLocation(taxiDriver.getTelegramId(), location.latitude(), location.longitude());
+                    telegramBotService.sendMessageWithKeyboard(taxiDriver.getTelegramId(), "Choose", keyboard);
                 });
         telegramBotService.sendMessage(client.id(), completeSendingClientMessage);
     }

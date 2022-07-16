@@ -5,6 +5,8 @@ import com.driverHub.core.repository.TaxiDriverRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TaxiDriverServiceImpl implements TaxiDriverService {
@@ -12,12 +14,20 @@ public class TaxiDriverServiceImpl implements TaxiDriverService {
 
     @Override
     public TaxiDriverEntity createAndSaveTaxiDriver(Long telegramId, String name, String phone, String car) {
+        if (taxiDriverRepository.getByTelegramId(telegramId).isPresent()){
+            return taxiDriverRepository.getByTelegramId(telegramId).get();
+        }
         TaxiDriverEntity taxiDriverEntity = new TaxiDriverEntity();
         taxiDriverEntity.setTelegramId(telegramId);
         taxiDriverEntity.setName(name);
         taxiDriverEntity.setPhone(phone);
         taxiDriverEntity.setCar(car);
         return taxiDriverRepository.save(taxiDriverEntity);
+    }
+
+    @Override
+    public Optional<TaxiDriverEntity> getDriverByTelegramId(Long telegramId) {
+        return taxiDriverRepository.getByTelegramId(telegramId);
     }
 
     @Override
