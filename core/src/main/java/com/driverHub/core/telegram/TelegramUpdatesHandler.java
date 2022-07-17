@@ -30,16 +30,20 @@ public class TelegramUpdatesHandler {
     private UpdatesListener createUpdatesListener() {
         return updates -> {
             log.info("updates here");
-            updates.forEach(this::handleUpdate);
+            updates.stream().parallel()
+                    .forEach((this::handleUpdate));
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         };
     }
 
     private void handleUpdate(Update update) {
-        telegramCommandsService.getCommandFromUpdateIfExist(update).ifPresentOrElse(
-                telegramCommand -> telegramCommand.applyCommandAction(telegramBotService, update),
-                () -> log.info("command is not found")
-        );
+        try {
+            telegramCommandsService.getCommandFromUpdateIfExist(update).ifPresentOrElse(
+                    telegramCommand -> telegramCommand.applyCommandAction(telegramBotService, update),
+                    () -> log.warn("command is not found"));
+        }catch (RuntimeException e){
+            log.error("Something bad happened during telegram update handling: " + e.getMessage());
+            log.info(update.toString());
+        }
     }
-
 }
