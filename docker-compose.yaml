@@ -1,0 +1,32 @@
+version: '2'
+services:
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: driverHub
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - default
+    expose:
+      - 5433
+  core:
+    container_name: core
+    build:
+      context: ./core
+    image: fat:1.4
+    expose:
+      - 8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+      - BOTTOKEN=5423205939:AAFNaz5kIqN9InK1C9QwshAnyXLM9WFc6v8
+    networks:
+      - default
+
