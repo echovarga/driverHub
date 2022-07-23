@@ -26,6 +26,9 @@ subprojects {
         //Lombok
         compileOnly 'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+        //Kafka
+        implementation 'org.springframework.kafka:spring-kafka:2.8.8'
     }
 }
 

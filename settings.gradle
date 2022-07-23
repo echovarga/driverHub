@@ -1,3 +1,4 @@
 rootProject.name = 'DriverHub'
 include 'core'
+include 'kafka-common'
 
