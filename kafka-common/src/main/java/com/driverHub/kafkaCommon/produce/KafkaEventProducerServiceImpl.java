@@ -1,6 +1,6 @@
-package com.driverHub.kafkaCommon.config.produce;
+package com.driverHub.kafkaCommon.produce;
 
-import com.driverHub.kafkaCommon.config.event.KafkaCommonBotCommandEvent;
+import com.driverHub.kafkaCommon.event.KafkaCommonBotCommandEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;

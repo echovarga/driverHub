@@ -1,4 +1,4 @@
-package com.driverHub.kafkaCommon.config;
+package com.driverHub.kafkaCommon;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;

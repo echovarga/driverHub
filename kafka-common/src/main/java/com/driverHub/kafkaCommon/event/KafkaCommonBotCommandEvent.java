@@ -1,4 +1,4 @@
-package com.driverHub.kafkaCommon.config.event;
+package com.driverHub.kafkaCommon.event;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.driverHub.kafkaCommon.config.consume;
+package com.driverHub.kafkaCommon.consume;
 
-import com.driverHub.kafkaCommon.config.event.KafkaCommonBotCommandEvent;
+import com.driverHub.kafkaCommon.event.KafkaCommonBotCommandEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
